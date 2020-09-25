@@ -1,0 +1,159 @@
+@charset "utf-8";
+
+// 1. Import the initial variables
+@import "~bulma/sass/utilities/initial-variables";
+@import "~bulma/sass/utilities/functions";
+
+$navbar-breakpoint: $tablet;
+
+$primary: #3360A7;
+$primary-invert: findColorInvert($primary);
+
+$teeworlds: #ffd861;
+$teeworlds-invert: findColorInvert($teeworlds);
+$ddnet: #61afff;
+$ddnet-invert: findColorInvert($ddnet);
+$github: #333;
+$github-invert: findColorInvert($github);
+
+@import "~bulma/sass/utilities/derived-variables";
+$addColors: (
+  "ddnet":($ddnet, $ddnet-invert),
+  "teeworlds": ($teeworlds, $teeworlds-invert),
+  "github": ($github, $github-invert)
+);
+$colors: map-merge($colors, $addColors);
+
+@import "~bulma/bulma";
+
+$banner-height: 480px;
+
+.banner-container {
+    height: $banner-height;
+}
+
+@keyframes twssplash {
+    0% {
+        opacity: 0;
+        background-position-y: 100%;
+    }
+    25% {
+        opacity: 0;
+        background-position-y: 100%;
+    }
+    100% {
+        opacity: 1;
+        background-position-y: 140%;
+    }
+}
+
+@keyframes ddnsplash {
+    0% {
+        opacity: 0;
+        background-position-y: 140%;
+    }
+    25% {
+        opacity: 0;
+        background-position-y: 140%;
+    }
+    100% {
+        opacity: 1;
+        background-position-y: 100%;
+    }
+}
+
+.banner-left {
+    transition-property: clip-path background-position;
+    transition-duration: 0.5s;
+    height: 100%;
+    clip-path: polygon(0% 0%, 60% 0%, 40% 100%, 0% 100%);
+    background-image: url("/twssplash.png");
+    background-repeat: no-repeat;
+    background-position: 60% 140%;
+    background-size: auto 125%;
+    animation: twssplash 1.5s ease-out 0s 1;
+    opacity: 1;
+
+    @include until-widescreen {
+        background-position: 80% 140%;
+    }
+
+    @include tablet-only {
+        background-position: 768px 140%;
+    }
+
+    &.tws-expanded {
+        background-position: 90% 80%;
+        clip-path: polygon(0% 0%, 90% 0%, 70% 100%, 0% 100%);
+    }
+
+    &.ddn-expanded {
+        background-position: 10% 140%;
+        clip-path: polygon(0% 0%, 30% 0%, 10% 100%, 0% 100%);
+    }
+
+    .tws-logo {
+        position: absolute;
+        background-image: url("/twlogo.png");
+        left: 30px;
+        top: 330px;
+        background-repeat: no-repeat;
+        height: 98px * 0.7;
+        width: 483px * 0.7;
+        background-size: auto 100%;
+    }
+
+    .title {
+        position: absolute;
+        left: 30px;
+        top: 400px;
+    }
+}
+
+.banner-right {
+    transition-property: clip-path background-position;
+    transition-duration: 0.5s;
+    margin-top: -$banner-height;
+    height: 100%;
+    clip-path: polygon(60% 0%, 100% 0%, 100% 100%, 40% 100%);
+    background-image: url("/ddnsplash.png");
+    background-repeat: no-repeat;
+    background-position: 40% 100%;
+    background-size: auto 125%;
+    animation: ddnsplash 1.5s ease-out 0s 1;
+    opacity: 1;
+
+    @include until-widescreen {
+        background-position: 20% 100%;
+    }
+
+    &.tws-expanded {
+        background-position: 90% 100%;
+        clip-path: polygon(90% 0%, 100% 0%, 100% 100%, 70% 100%);
+    }
+
+    &.ddn-expanded {
+        background-position: 30% 100%;
+        clip-path: polygon(30% 0%, 100% 0%, 100% 100%, 10% 100%);
+    }
+
+    @include tablet-only {
+        background-position: -768px 100%;
+    }
+
+    .ddn-logo {
+        position: absolute;
+        background-image: url("/ddnet.svg");
+        right: 20px;
+        top: 90px;
+        background-repeat: no-repeat;
+        height: 120px;
+        width: 420px;
+        background-size: auto 100%;
+    }
+    .title {
+        position: absolute;
+        right: 30px;
+        top: 200px;
+    }
+}
