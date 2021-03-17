@@ -16,6 +16,7 @@ import 'styles/main.scss';
 // 页面
 // TODO: 设计Layout模版后就可以删掉'raw'了
 m.route(document.body, '/', {
+  '/p/:map': PAGE('preview_redirect', 'raw'),
   '/browser/:server': PAGE('browser_server', 'raw'),
   '/browser': PAGE('browser', 'raw'),
   '/': PAGE('home', 'raw'),

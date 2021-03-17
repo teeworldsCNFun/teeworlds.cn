@@ -1,3 +1,8 @@
+/*
+  服务器浏览器浏览页
+  页面作者: TsFreddie
+*/
+
 import m from 'mithril';
 import render from 'mithril-node-render';
 

@@ -1,3 +1,8 @@
+/*
+  服务器浏览器详情页
+  页面作者: TsFreddie
+*/
+
 import m from 'mithril';
 import { toSafeInteger, orderBy, padStart, filter } from 'lodash';
 import * as clipboard from 'clipboard-polyfill/text';
