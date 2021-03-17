@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "module": "esnext",
+    "target": "es2015",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "noImplicitAny": true,
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "outDir": "dist",
+    "baseUrl": ".",
+    "jsx": "react",
+    "jsxFactory": "m",
+    "removeComments": false,
+    "allowJs": true,
+    "paths": {
+      "@/*": ["src/components/*"],
+      "styles/*": ["src/styles/*"]
+    }
+  },
+  "include": ["src/**/*"]
+}
