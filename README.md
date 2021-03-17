@@ -24,7 +24,7 @@ NodeJS v14 LTS
 
 之后在入口文件 `src/index.tsx` 中添加路径解析即可:
 
-```
+```tsx
 m.route(document.body, '/', {
   '/browser/:server': PAGE('browser_server', 'raw'),
   '/browser': PAGE('browser', 'raw'),
@@ -37,7 +37,7 @@ m.route(document.body, '/', {
 
 和页面同理，例如创建了组建 `item.tsx`，在页面中调用时如下
 
-```
+```tsx
 // 导入组建
 import Item from './item';
 
@@ -55,11 +55,11 @@ export default class implements m.ClassComponent {
 
 ## 渲染列表
 
-```
+```tsx
 <div class="container">
-  {list.map(item) => {
+  {list.map(item => (
     <Item id={item} />
-  }}
+  ))}
 </div>
 ```
 
@@ -67,7 +67,7 @@ export default class implements m.ClassComponent {
 
 在 `src/styles` 目录创建你的样式文件 `mystyle.scss` 并在你的组建头中引用即可：
 
-```
+```tsx
 import 'styles/mystyle.scss';
 ```
 
