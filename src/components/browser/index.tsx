@@ -14,6 +14,14 @@ import * as bulmaToast from 'bulma-toast';
 
 import 'styles/browser.scss';
 
+interface Attr {
+  include?: string;
+  exclude?: string;
+  sortBy?: string;
+  order?: 'asc' | 'desc';
+}
+type CVnode = m.CVnode<Attr>;
+
 export interface ServerState {
   ip: string;
   port: number;
@@ -41,7 +49,7 @@ const filterOptions: {
   exclude: '',
 };
 
-export default class implements m.ClassComponent {
+export default class implements m.ClassComponent<Attr> {
   clusterize: Clusterize;
   servers: ServerState[] = [];
   browserHeight = 100;
@@ -161,11 +169,17 @@ export default class implements m.ClassComponent {
     document.getElementById('browserTableContainer').style.height = `${this.browserHeight}px`;
   };
 
-  constructor() {
+  constructor({ attrs }: CVnode) {
     document.title = '服务器浏览器 - Teeworlds中文社区';
     this.updateServerList();
 
     window.addEventListener('resize', this.updateBrowserHeight);
+    if (attrs.include) filterOptions.include = attrs.include;
+    if (attrs.exclude) filterOptions.exclude = attrs.exclude;
+    if (attrs.sortBy)
+      filterOptions.sortKeys = [
+        { key: attrs.sortBy, order: attrs.order == 'asc' ? 'asc' : 'desc' },
+      ];
   }
 
   onremove() {
