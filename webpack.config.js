@@ -49,7 +49,7 @@ module.exports = (env, argv) => {
         dry: devMode,
       }),
       new HtmlPlugin({
-        title: 'TeeworldsCN',
+        title: 'Teeworlds中文社区',
         meta: {
           viewport: 'width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=0',
         },

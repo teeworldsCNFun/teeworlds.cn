@@ -21,12 +21,22 @@ export default class implements m.ClassComponent<Attr> {
   init: boolean;
   isWeird: boolean;
   targetUrl: string;
+  viewport: any;
 
   redirect = (url: string, doIt: boolean) => {
-    if (doIt) setTimeout(() => window.location.replace(url), 2500);
+    if (doIt) setTimeout(() => window.location.replace(url), 1500);
     this.targetUrl = url;
   };
   constructor({ attrs: { map } }: CVnode) {
+    const metas = document.getElementsByTagName('meta');
+
+    for (let i = 0; i < metas.length; i++) {
+      if (metas[i].getAttribute('name') === 'viewport') {
+        this.viewport = metas[i];
+      }
+    }
+    if (this.viewport) this.viewport.setAttribute('content', '');
+
     this.map = map;
     this.init = false;
     document.title = `地图预览 - Teeworlds中文社区`;
@@ -41,6 +51,12 @@ export default class implements m.ClassComponent<Attr> {
       !this.isWeird
     );
     this.init = true;
+    if (this.viewport)
+      this.viewport.setAttribute(
+        'content',
+        'width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=0'
+      );
+    m.redraw();
   }
 
   view() {
