@@ -221,7 +221,7 @@ export default class implements m.ClassComponent<Attr> {
           <div class="column">
             <div class="card">
               <header class="card-header">
-                <p class="card-header-title">玩家列表 ({this.server.num_clients}/{this.server.max_clients})</p>
+                <p class="card-header-title">玩家列表 {this.loaded && this.server && (`${this.server.num_clients}/${this.server.max_clients}`)}</p>
               </header>
               <table class="table is-narrow is-fullwidth is-bordered is-striped table-fixed">
                 <thead>
