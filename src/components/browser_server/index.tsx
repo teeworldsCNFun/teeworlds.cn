@@ -153,6 +153,7 @@ export default class implements m.ClassComponent<Attr> {
                       </p>
                       <p>名字: {this.server.name}</p>
                       <p>模式: {this.server.game_type}</p>
+                      <p>地图: {this.server.map}</p>
                       <p>密码: {this.server.passworded ? '有' : '无'}</p>
                       <p>服务端版本: {this.server.version}</p>
                       <p>
@@ -220,7 +221,7 @@ export default class implements m.ClassComponent<Attr> {
           <div class="column">
             <div class="card">
               <header class="card-header">
-                <p class="card-header-title">玩家列表</p>
+                <p class="card-header-title">玩家列表 ({this.server.num_clients}/{this.server.max_clients})</p>
               </header>
               <table class="table is-narrow is-fullwidth is-bordered is-striped table-fixed">
                 <thead>
