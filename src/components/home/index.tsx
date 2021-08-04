@@ -34,7 +34,6 @@ export default class implements m.ClassComponent {
           <section class="section is-medium">
             <div class="link">
               <h1 class="title">中文社区</h1>
-              <a class="button" href="">QQ (2群)</a>
               <a class="button" href="https://www.kaiheila.cn/app/invite/pNXyP8">开黑啦</a>
               <a class="button" href="https://discord.gg/dqwuHEq">Discord</a>
               <a class="button" href="https://t.me/teeworldscn">Telegram</a>
