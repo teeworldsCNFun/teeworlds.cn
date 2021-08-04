@@ -37,16 +37,19 @@ export interface ServerState {
   num_clients: number;
   num_players: number;
   num_spectators: number;
+  clients: [{name:string}];
 }
 
 const filterOptions: {
   sortKeys: { key: string; order: 'asc' | 'desc' }[];
   include: string;
   exclude: string;
+  country: string;
 } = {
   sortKeys: [],
   include: '',
   exclude: '',
+  country: '',
 };
 
 export default class implements m.ClassComponent<Attr> {
@@ -62,7 +65,9 @@ export default class implements m.ClassComponent<Attr> {
       try {
         const list = await m.request<{ servers: ServerState[] }>({
           method: 'GET',
-          url: 'https://api.teeworlds.cn/servers/list',
+          url: 'https://api.teeworlds.cn/servers',
+          params: { detail: true, },
+          //url: 'https://api.teeworlds.cn/servers/list',
         });
         this.servers = list.servers;
         this.filterServerList();
@@ -141,9 +146,26 @@ export default class implements m.ClassComponent<Attr> {
       'i'
     );
 
-    const data = orderBy(
+    const countryRegex = new RegExp(
+      `^${filterOptions.country
+        .split(' ')
+        .filter(s => s)
+        .map(s => `(?=.*${s})`)
+        .join('')}.*$`, 'i'
+    );
+
+    const countryData = orderBy(
       filter(this.servers, s => {
-        const identifier = `${s.name} ${s.ip} ${s.game_type} ${s.map} ${s.locale}`;
+        const identifier = `${s.locale} `;
+        return ((filterOptions.country && !identifier.match(countryRegex))) ? false : true;
+      }),
+      keys,
+      order
+    );
+
+    const data = orderBy(
+      filter(countryData, s => {
+        const identifier = `${s.name} ${s.ip} ${s.game_type} ${s.map} ${s.clients.map((obj,index)=>{return obj.name != null ? obj.name : ""}).join(' ')}`;
         if (filterOptions.exclude && identifier.match(excludeRegex)) {
           return false;
         }
@@ -255,6 +277,29 @@ export default class implements m.ClassComponent<Attr> {
                   <span class="icon is-left">
                     <i class="fas fa-times"></i>
                   </span>
+                </div>
+              </div>
+              <div class="column is-narrow">
+                <div class="control has-icons-left" >
+                  <div class="select">
+                    <select value={filterOptions.country} onchange={(v: any) => {
+                      filterOptions.country = v.target.value;
+                      this.filterServerList();
+                    }
+                    }>
+                      <option value="" >全球</option>
+                      <option value="as">(AS) 亚洲</option>
+                      <option value="as:cn">(CN) 中国</option>
+                      <option value="eu">(EU) 欧洲</option>
+                      <option value="na">(NA) 北美洲</option>
+                      <option value="oc">(OC) 大洋洲</option>
+                      <option value="sa">(SA) 南美洲</option>
+                      <option value="af">(AF) 非洲</option>
+                    </select>
+                  </div>
+                  <div class="icon is-small is-left">
+                    <i class="fas fa-globe"></i>
+                  </div>
                 </div>
               </div>
             </div>
