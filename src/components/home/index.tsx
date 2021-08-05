@@ -15,7 +15,7 @@ export default class implements m.ClassComponent {
         <div class="content">
           <section class="section is-large">
             <div class="serverlist">
-              <a class="button" href="/#?/browser">
+              <a class="button" href="/browser">
                 <h1 class="title">服务器浏览器</h1>
               </a>
               <h2 class="subtitle">
