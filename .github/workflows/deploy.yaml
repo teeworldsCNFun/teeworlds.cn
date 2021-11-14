@@ -8,7 +8,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    name: Build and Deploy
+    name: Build and Deploy RUN!!!
 
     steps:
       - uses: actions/checkout@master
